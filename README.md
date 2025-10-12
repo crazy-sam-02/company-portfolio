@@ -1,16 +1,67 @@
-# React + Vite
+<div align="center">
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# ProjectHub – Company Portfolio
 
-Currently, two official plugins are available:
+React + Vite + Tailwind CSS
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+</div>
 
-## React Compiler
+## Prerequisites
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Node.js 18+ (recommended) and npm
 
-## Expanding the ESLint configuration
+## Install
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```powershell
+cd c:\Users\SAM\Desktop\company\comp-site\website
+npm install
+```
+
+## Run (development)
+
+```powershell
+npm run dev
+```
+
+Then open the URL printed by Vite, e.g. http://localhost:5173 or http://localhost:5174
+
+## Build (production)
+
+```powershell
+npm run build
+```
+
+The built files will be in `dist/`.
+
+## Preview local build
+
+```powershell
+npm run preview
+```
+
+## Tech stack
+
+- React 19
+- Vite 7
+- Tailwind CSS (via PostCSS adapter `@tailwindcss/postcss`)
+- ESLint
+
+## Tailwind setup notes
+
+- Tailwind is configured in `tailwind.config.cjs` with content paths:
+  - `index.html`, and `src/**/*.{js,jsx,ts,tsx,html}`
+- PostCSS loads Tailwind via `@tailwindcss/postcss` in `postcss.config.cjs`.
+- The main stylesheet `src/index.css` contains the directives:
+  - `@tailwind base; @tailwind components; @tailwind utilities;`
+
+If your editor flags `@tailwind` or `@apply` as unknown at-rules, that is only a linting warning; Vite/PostCSS will process them correctly.
+
+## Troubleshooting
+
+- Port 5173 already in use: Vite will auto-pick the next port (e.g., 5174). Use the URL it prints.
+- npx tailwindcss fails: You can rely on Vite + PostCSS (no CLI needed). Optional standalone build is available via `npm run build:css`.
+- PostCSS plugin error: Ensure `@tailwindcss/postcss` is installed and referenced in `postcss.config.cjs`.
+
+## License
+
+This project is licensed under the MIT License. See [LICENSE](./LICENSE).
