@@ -1,0 +1,14 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Prionex — IoT, AI/ML, Web & Mobile Projects">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <g fill="#fff">
+    <text x="80" y="240" font-family="Segoe UI, Roboto, Arial, sans-serif" font-size="96" font-weight="800">Prionex</text>
+    <text x="80" y="330" font-family="Segoe UI, Roboto, Arial, sans-serif" font-size="40" opacity="0.95">IoT • AI/ML • Web • Mobile</text>
+    <text x="80" y="390" font-family="Segoe UI, Roboto, Arial, sans-serif" font-size="28" opacity="0.9">Innovative project development for students & professionals</text>
+  </g>
+</svg>
