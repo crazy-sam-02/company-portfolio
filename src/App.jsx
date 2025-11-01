@@ -279,7 +279,7 @@ function App() {
                 {[
                   { label: 'Product Quality', value: '100%' },
                   { label: 'Transparency', value: '100%' },
-                  { label: 'Success Rate', value: '100%%' },
+                  { label: 'Success Rate', value: '100%' },
                   { label: 'On-Time Delivery', value: '100%' }
                 ].map((stat, index) => (
                   <div key={index} className="text-center">
