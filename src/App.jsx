@@ -102,24 +102,7 @@ function App() {
   
   const navLinks = ['home', 'about', 'projects', 'founders', 'contact'];
 
-  // Contact form submit handler: prevent default and open mail client with form contents
-  const handleContactSubmit = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const formData = new FormData(form);
-    const name = formData.get('name') || '';
-    const email = formData.get('email') || '';
-    const phone = formData.get('phone') || '';
-    const message = formData.get('message') || '';
-
-    const subject = `ProjectHub Inquiry from ${name}`;
-    const body = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\n${message}`;
-    const mailto = `mailto:contact@projecthub.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-    // Open user's mail client with prefilled message
-    window.location.href = mailto;
-    form.reset();
-  };
+  // Note: form submissions are handled by sendmessage (Web3Forms API)
 
   // This is a neat trick to inject global styles in a React component
   const GlobalStyles = () => (
@@ -269,7 +252,7 @@ function App() {
             <div className="flex justify-center mb-6 animated-element" ref={addToRefs}>
               <div className="inline-flex items-center space-x-2 bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-full px-4 py-2 text-sm text-slate-300 shadow-lg">
                 <Sparkles className="w-4 h-4 text-yellow-400" />
-                <span>Trusted by 50+ Students Nationwide</span>
+                <span>Trusted by 50+ Professionals Nationwide</span>
               </div>
             </div>
 
@@ -356,7 +339,10 @@ function App() {
                   </h2>
                   <p className="mt-6 text-lg text-slate-400">
                     We are students from Mailam Engineering College helping others with quality project development.
-                    Started in 2023, we've successfully delivered 50+ projects to students across various domains.
+                    Started in 2025, we've successfully delivered 50+ projects across IoT, AI/ML, web and mobile apps.
+                    Explore our <a href="#services" onClick={(e) => { e.preventDefault(); scrollToSection('services'); }} className="text-purple-300 hover:text-white underline underline-offset-4">services</a>, see sample
+                    <a href="#projects" onClick={(e) => { e.preventDefault(); scrollToSection('projects'); }} className="ml-1 text-purple-300 hover:text-white underline underline-offset-4">projects</a>, and
+                    <a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }} className="ml-1 text-purple-300 hover:text-white underline underline-offset-4">contact us</a> to get started.
                   </p>
                   <div className="mt-8 space-y-6">
                     <div className="flex items-start space-x-4">
@@ -501,11 +487,11 @@ function App() {
                     {/* Social icons (Github, LinkedIn, Instagram) */}
                     <div className="mt-4 flex items-center justify-center gap-3">
                       {[
-                        { Icon: Github, href: founder.github },
-                        { Icon: Linkedin, href: founder.linkedin },
-                        { Icon: Instagram, href: founder.instagram }
+                        { Icon: Github, href: founder.github, label: `${founder.name} on GitHub` },
+                        { Icon: Linkedin, href: founder.linkedin, label: `${founder.name} on LinkedIn` },
+                        { Icon: Instagram, href: founder.instagram, label: `${founder.name} on Instagram` }
                       ].map((social, sidx) => (
-                        <a key={sidx} href={social.href} target="_blank" rel="noopener noreferrer" className="h-10 w-10 flex items-center justify-center rounded-full bg-slate-700 text-slate-300 hover:bg-purple-600 hover:text-white transition-all duration-300 hover:scale-110">
+                        <a aria-label={social.label} key={sidx} href={social.href} target="_blank" rel="noopener noreferrer" className="h-10 w-10 flex items-center justify-center rounded-full bg-slate-700 text-slate-300 hover:bg-purple-600 hover:text-white transition-all duration-300 hover:scale-110">
                           <social.Icon className="h-5 w-5" />
                         </a>
                       ))}
@@ -550,7 +536,7 @@ function App() {
                     </div>
                     <div>
                       <label htmlFor="phone" className="block text-sm font-medium text-slate-400 mb-2">Phone</label>
-                      <input id="phone" name="phone" type="tel" placeholder="+91 93459 47620" className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition" />
+                      <input id="phone" name="phone" type="tel" placeholder="+91 9876543210" className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition" />
                     </div>
                     <div>
                       <label htmlFor="message" className="block text-sm font-medium text-slate-400 mb-2">Message</label>
@@ -587,11 +573,11 @@ function App() {
                     <h3 className="text-xl font-bold text-white mb-4">Follow Us</h3>
                     <div className="flex space-x-4">
                       {[
-                        { icon: Instagram, href: 'https://www.instagram.com/prionex_global?igsh=anM0Y2ZneHJyMWd3' },
-                        { icon: Linkedin, href: 'https://www.linkedin.com/in/prionex-undefined-340201395/' },
-                        { icon: Github, href: 'https://github.com/prionex2025-hue' }
+                        { icon: Instagram, href: 'https://www.instagram.com/prionex_global?igsh=anM0Y2ZneHJyMWd3', label: 'Follow Prionex on Instagram' },
+                        { icon: Linkedin, href: 'https://www.linkedin.com/in/prionex-undefined-340201395/', label: 'Connect with Prionex on LinkedIn' },
+                        { icon: Github, href: 'https://github.com/prionex2025-hue', label: 'Prionex on GitHub' }
                       ].map((social, index) => (
-                        <a key={index} href={social.href} target="_blank" rel="noopener noreferrer" className="h-12 w-12 flex items-center justify-center rounded-full bg-slate-700 text-slate-400 hover:bg-purple-600 hover:text-white transition-all duration-300 hover:scale-110">
+                        <a aria-label={social.label} key={index} href={social.href} target="_blank" rel="noopener noreferrer" className="h-12 w-12 flex items-center justify-center rounded-full bg-slate-700 text-slate-400 hover:bg-purple-600 hover:text-white transition-all duration-300 hover:scale-110">
                           <social.icon />
                         </a>
                       ))}
@@ -645,9 +631,9 @@ function App() {
                 </a>
                 <h4 className="text-base font-semibold text-slate-300 tracking-wider uppercase">Follow Us</h4>
               <div className="mt-4 flex space-x-4">
-                <a href="https://github.com/prionex2025-hue" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white hover:scale-125 transition-transform duration-300 transform"><Github /></a>
-                <a href="https://www.linkedin.com/in/prionex-undefined-340201395/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white hover:scale-125 transition-transform duration-300 transform"><Linkedin /></a>
-                <a href="https://www.instagram.com/prionex_global?igsh=anM0Y2ZneHJyMWd3" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white hover:scale-125 transition-transform duration-300 transform"><Instagram /></a>
+                <a aria-label="Prionex on GitHub" href="https://github.com/prionex2025-hue" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white hover:scale-125 transition-transform duration-300 transform"><Github /></a>
+                <a aria-label="Prionex on LinkedIn" href="https://www.linkedin.com/in/prionex-undefined-340201395/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white hover:scale-125 transition-transform duration-300 transform"><Linkedin /></a>
+                <a aria-label="Prionex on Instagram" href="https://www.instagram.com/prionex_global?igsh=anM0Y2ZneHJyMWd3" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white hover:scale-125 transition-transform duration-300 transform"><Instagram /></a>
               </div>
               </div>
             </div>

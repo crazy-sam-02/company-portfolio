@@ -1,0 +1,6 @@
+# robots.txt for Prionex
+# Update sitemap URL after you set your production domain
+User-agent: *
+Allow: /
+
+Sitemap: https://your-domain.com/sitemap.xml
