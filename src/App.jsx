@@ -36,7 +36,36 @@ const useIntersectionObserver = (options) => {
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [result, setResult] = useState("");
   const [observe] = useIntersectionObserver({ threshold: 0.1 });
+
+  // sendmessage: submits form to web3forms API
+  const sendmessage = async (event) => {
+    event.preventDefault();
+    try {
+      const formData = new FormData(event.target);
+      formData.append("access_key", "4bca6f80-2622-48e0-adc6-a94eaada23f1");
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+      setResult(data.success ? "Success!" : "Error");
+      if (data.success) {
+        // optional: show a quick success alert
+        alert('Message sent successfully.');
+        event.target.reset();
+      } else {
+        alert('Failed to send message.');
+      }
+    } catch (err) {
+      console.error('sendmessage error', err);
+      setResult('Error');
+      alert('An error occurred while sending the message.');
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -72,6 +101,25 @@ function App() {
   const whatsappLink = `https://wa.me/${9025895743}?text=${encodeURIComponent(whatsappMessage)}`;
   
   const navLinks = ['home', 'about', 'projects', 'founders', 'contact'];
+
+  // Contact form submit handler: prevent default and open mail client with form contents
+  const handleContactSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const name = formData.get('name') || '';
+    const email = formData.get('email') || '';
+    const phone = formData.get('phone') || '';
+    const message = formData.get('message') || '';
+
+    const subject = `ProjectHub Inquiry from ${name}`;
+    const body = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\n${message}`;
+    const mailto = `mailto:contact@projecthub.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    // Open user's mail client with prefilled message
+    window.location.href = mailto;
+    form.reset();
+  };
 
   // This is a neat trick to inject global styles in a React component
   const GlobalStyles = () => (
@@ -148,7 +196,7 @@ function App() {
                 <Code className="text-white h-6 w-6" />
               </div>
               <span className="text-2xl font-bold text-white group-hover:text-purple-400 transition-colors">
-                ProjectHub
+                PRIONEX
               </span>
             </div>
 
@@ -221,7 +269,7 @@ function App() {
             <div className="flex justify-center mb-6 animated-element" ref={addToRefs}>
               <div className="inline-flex items-center space-x-2 bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-full px-4 py-2 text-sm text-slate-300 shadow-lg">
                 <Sparkles className="w-4 h-4 text-yellow-400" />
-                <span>Trusted by 500+ Students Nationwide</span>
+                <span>Trusted by 50+ Students Nationwide</span>
               </div>
             </div>
 
@@ -246,9 +294,9 @@ function App() {
             
             <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 text-white animated-element delay-5" ref={addToRefs}>
                 {[
-                  { label: 'Projects Completed', value: '500+' },
-                  { label: 'Happy Students', value: '450+' },
-                  { label: 'Success Rate', value: '98%' },
+                  { label: 'Product Quality', value: '100%' },
+                  { label: 'Transparency', value: '100%' },
+                  { label: 'Success Rate', value: '100%%' },
                   { label: 'On-Time Delivery', value: '100%' }
                 ].map((stat, index) => (
                   <div key={index} className="text-center">
@@ -304,11 +352,11 @@ function App() {
               <div className="grid md:grid-cols-2 gap-16 items-center">
                 <div className="animated-element" ref={addToRefs}>
                   <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                    About <span className="gradient-text">ProjectHub</span>
+                    About <span className="gradient-text">PRIONEX</span>
                   </h2>
                   <p className="mt-6 text-lg text-slate-400">
                     We are students from Mailam Engineering College helping others with quality project development.
-                    Started in 2023, we've successfully delivered 500+ projects to students across various domains.
+                    Started in 2023, we've successfully delivered 50+ projects to students across various domains.
                   </p>
                   <div className="mt-8 space-y-6">
                     <div className="flex items-start space-x-4">
@@ -334,7 +382,7 @@ function App() {
                 <div className="relative animated-element delay-2" ref={addToRefs}>
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-500 rounded-3xl transform -rotate-3"></div>
                   <div className="relative p-8 bg-slate-800 rounded-3xl shadow-2xl text-center">
-                      <div className="text-8xl font-black gradient-text">500+</div>
+                      <div className="text-8xl font-black gradient-text">50+</div>
                       <div className="mt-2 text-2xl font-bold text-white">Projects Delivered</div>
                       <div className="mt-2 text-slate-400">Making Students Successful</div>
                   </div>
@@ -435,14 +483,33 @@ function App() {
 
               <div className="mt-16 grid gap-12 md:grid-cols-2">
                 {[
-                  { name: 'Sambath S', role: 'Co-founder & Developer', bio: 'Full-stack developer specializing in web and mobile applications. Passionate about creating scalable solutions.', avatar: 'https://placehold.co/128x128/a78bfa/FFFFFF?text=SS' },
-                  { name: 'Thamizh Kumaran MDR', role: 'Co-founder & Embedded/AI Specialist', bio: 'Expert in IoT, embedded systems, and AI/ML. Focused on building intelligent automation solutions.', avatar: 'https://placehold.co/128x128/60a5fa/FFFFFF?text=TK' }
+                  { name: 'Sambath S', role: 'Co-founder & Developer/AI Specialist', bio: 'Full-stack developer specializing in web and mobile applications. Passionate about creating scalable solutions.', avatar: 'https://placehold.co/128x128/a78bfa/FFFFFF?text=SS', github: 'https://github.com/crazy-sam-02', linkedin: 'https://www.linkedin.com/in/sambath-siva-059ba3299/', instagram: 'https://www.instagram.com/crazy_sam_02/?utm_source=ig_web_button_share_sheet' },
+                  { name: 'Thamizh Kumaran MDR', role: 'Co-founder & Embedded/ IOT Developer', bio: 'Expert in IoT, embedded systems, and AI/ML. Focused on building intelligent automation solutions.', avatar: 'https://placehold.co/128x128/60a5fa/FFFFFF?text=TK', github: '#', linkedin: 'https://www.linkedin.com/in/thamizh-kumaran-m-d-r-970ab0293?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app', instagram: 'https://www.instagram.com/mr.lone_ranger_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==' }
                 ].map((founder, index) => (
                   <div key={index} ref={addToRefs} className={`animated-element delay-${index+1} p-8 bg-slate-800/50 border border-slate-700 rounded-2xl text-center flex flex-col items-center hover:border-purple-500 hover:scale-105 transition-all duration-300 shadow-lg`}>
-                    <img className="h-32 w-32 rounded-full ring-4 ring-purple-500/50" src={founder.avatar} alt={founder.name} />
+                    <div className="relative">
+                      <img className="h-32 w-32 rounded-full ring-4 ring-purple-500/50" src={founder.avatar} alt={founder.name} />
+                      {/* small logo badge overlay */}
+                      <div className="absolute -bottom-1 -right-1 bg-slate-900/70 border border-purple-500 rounded-full p-1">
+                        <Code className="h-5 w-5 text-white" />
+                      </div>
+                    </div>
                     <h3 className="mt-6 text-xl font-bold text-white">{founder.name}</h3>
                     <div className="text-sm font-semibold text-purple-400">{founder.role}</div>
                     <p className="mt-4 text-slate-400 text-sm">{founder.bio}</p>
+
+                    {/* Social icons (Github, LinkedIn, Instagram) */}
+                    <div className="mt-4 flex items-center justify-center gap-3">
+                      {[
+                        { Icon: Github, href: founder.github },
+                        { Icon: Linkedin, href: founder.linkedin },
+                        { Icon: Instagram, href: founder.instagram }
+                      ].map((social, sidx) => (
+                        <a key={sidx} href={social.href} target="_blank" rel="noopener noreferrer" className="h-10 w-10 flex items-center justify-center rounded-full bg-slate-700 text-slate-300 hover:bg-purple-600 hover:text-white transition-all duration-300 hover:scale-110">
+                          <social.Icon className="h-5 w-5" />
+                        </a>
+                      ))}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -457,6 +524,7 @@ function App() {
 
           {/* Contact */}
           <section id="contact" className="py-20 sm:py-32 bg-[#0a092d]">
+            
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center">
                 <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight animated-element" ref={addToRefs}>
@@ -471,22 +539,22 @@ function App() {
                 {/* Contact Form */}
                 <div className="lg:col-span-3 bg-slate-800/50 border border-slate-700 rounded-2xl p-8 animated-element" ref={addToRefs}>
                   <h3 className="text-2xl font-bold text-white mb-6">Send us a message</h3>
-                  <form className="space-y-6">
+                  <form className="space-y-6" onSubmit={sendmessage} >
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-slate-400 mb-2">Name</label>
-                      <input id="name" type="text" placeholder="Your name" className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition" />
+                      <input id="name" name="name" type="text" placeholder="Your name" className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition" />
                     </div>
                     <div>
                       <label htmlFor="email" className="block text-sm font-medium text-slate-400 mb-2">Email</label>
-                      <input id="email" type="email" placeholder="your@email.com" className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition" />
+                      <input id="email" name="email" type="email" placeholder="your@email.com" className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition" />
                     </div>
                     <div>
                       <label htmlFor="phone" className="block text-sm font-medium text-slate-400 mb-2">Phone</label>
-                      <input id="phone" type="tel" placeholder="+91 12345 67890" className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition" />
+                      <input id="phone" name="phone" type="tel" placeholder="+91 93459 47620" className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition" />
                     </div>
                     <div>
                       <label htmlFor="message" className="block text-sm font-medium text-slate-400 mb-2">Message</label>
-                      <textarea id="message" rows={4} placeholder="Tell us about your project..." className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition" />
+                      <textarea id="message" name="message" rows={4} placeholder="Tell us about your project..." className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition" />
                     </div>
                     <button type="submit" className="w-full px-8 py-3 text-lg font-bold text-white bg-purple-600 rounded-full shadow-lg shadow-purple-600/40 hover:bg-purple-700 hover:scale-105 transition-all duration-300 transform">
                       Send Message
@@ -503,14 +571,14 @@ function App() {
                         <div className="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-lg bg-slate-700 text-purple-400"><Mail /></div>
                         <div>
                           <div className="text-sm text-slate-400">Email</div>
-                          <a href="mailto:contact@projecthub.com" className="text-white hover:text-purple-400 transition">contact@projecthub.com</a>
+                          <a href="mailto:prionex2025@gmail.com" className="text-white hover:text-purple-400 transition">prionex2025@gmail.com</a>
                         </div>
                       </div>
                       <div className="flex items-start space-x-4">
                         <div className="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-lg bg-slate-700 text-purple-400"><Phone /></div>
                         <div>
                           <div className="text-sm text-slate-400">Phone</div>
-                          <a href="tel:+911234567890" className="text-white hover:text-purple-400 transition">+91 12345 67890</a>
+                          <a href="tel:+911234567890" className="text-white hover:text-purple-400 transition">+91 93459 47620</a>
                         </div>
                       </div>
                     </div>
@@ -519,8 +587,9 @@ function App() {
                     <h3 className="text-xl font-bold text-white mb-4">Follow Us</h3>
                     <div className="flex space-x-4">
                       {[
-                        { icon: Instagram, href: '#' },
-                        { icon: Linkedin, href: '#' }
+                        { icon: Instagram, href: 'https://www.instagram.com/prionex_global?igsh=anM0Y2ZneHJyMWd3' },
+                        { icon: Linkedin, href: 'https://www.linkedin.com/in/prionex-undefined-340201395/' },
+                        { icon: Github, href: 'https://github.com/prionex2025-hue' }
                       ].map((social, index) => (
                         <a key={index} href={social.href} target="_blank" rel="noopener noreferrer" className="h-12 w-12 flex items-center justify-center rounded-full bg-slate-700 text-slate-400 hover:bg-purple-600 hover:text-white transition-all duration-300 hover:scale-110">
                           <social.icon />
@@ -545,7 +614,7 @@ function App() {
                 <div className="p-2 bg-purple-600 rounded-lg">
                   <Code className="text-white h-6 w-6" />
                 </div>
-                <span className="text-2xl font-bold text-white">ProjectHub</span>
+                <span className="text-2xl font-bold text-white">PRIONEX</span>
               </div>
               <p className="mt-4 text-sm text-slate-400">
                 Empowering students with quality academic and technical projects. Your success is our mission.
@@ -568,7 +637,7 @@ function App() {
             <div>
               <h4 className="text-base font-semibold text-slate-300 tracking-wider uppercase">Contact Us</h4>
               <div className="mt-4 space-y-4 text-base text-slate-400">
-                <a href="mailto:contact@projecthub.com" className="flex items-center space-x-2 hover:text-white">
+                <a href="mailto:prionex2025@gmail.com" className="flex items-center space-x-2 hover:text-white">
                   <Mail className="h-5 w-5"/><span>Email</span>
                 </a>
                 <a href="tel:+911234567890" className="flex items-center space-x-2 hover:text-white">
@@ -576,9 +645,9 @@ function App() {
                 </a>
                 <h4 className="text-base font-semibold text-slate-300 tracking-wider uppercase">Follow Us</h4>
               <div className="mt-4 flex space-x-4">
-                <a href="#" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white hover:scale-125 transition-transform duration-300 transform"><Github /></a>
-                <a href="#" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white hover:scale-125 transition-transform duration-300 transform"><Linkedin /></a>
-                <a href="#" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white hover:scale-125 transition-transform duration-300 transform"><Instagram /></a>
+                <a href="https://github.com/prionex2025-hue" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white hover:scale-125 transition-transform duration-300 transform"><Github /></a>
+                <a href="https://www.linkedin.com/in/prionex-undefined-340201395/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white hover:scale-125 transition-transform duration-300 transform"><Linkedin /></a>
+                <a href="https://www.instagram.com/prionex_global?igsh=anM0Y2ZneHJyMWd3" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white hover:scale-125 transition-transform duration-300 transform"><Instagram /></a>
               </div>
               </div>
             </div>
@@ -599,7 +668,7 @@ function App() {
           </div>
 
           <div className="mt-8 pt-8 border-t border-slate-800 text-center text-sm text-slate-500">
-            <p>© {new Date().getFullYear()} ProjectHub. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} PRIONEX. All rights reserved.</p>
             <p className="mt-1">Made with ❤️ by Sambath & Thamizh</p>
           </div>
         </div>

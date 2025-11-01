@@ -1,6 +1,6 @@
 <div align="center">
 
-# ProjectHub – Company Portfolio
+# PRIONEX – Company Portfolio
 
 React + Vite + Tailwind CSS
 
