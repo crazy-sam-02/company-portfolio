@@ -1,6 +1,22 @@
 # robots.txt for Prionex
-# Update sitemap URL after you set your production domain
+# Professional IoT, AI/ML, Web & Mobile App Development Services
 User-agent: *
 Allow: /
+Allow: /blog
+Allow: /assets/
+Allow: /*.css$
+Allow: /*.js$
 
+# Disallow admin or private paths (if any in future)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Sitemap location
 Sitemap: https://prionex.dev/sitemap.xml
+
+# Host declaration
+Host: https://prionex.dev

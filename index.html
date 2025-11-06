@@ -39,13 +39,132 @@
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "Prionex",
-  "url": "https://prionex.dev/",
-        "logo": "/vite.svg",
+        "url": "https://prionex.dev/",
+        "logo": "https://prionex.dev/Logo.svg",
+        "description": "Prionex builds innovative IoT, AI/ML, web and mobile app development projects for students and professionals with complete documentation and support.",
+        "foundingDate": "2023",
+        "founders": [
+          {
+            "@type": "Person",
+            "name": "Sambath S",
+            "jobTitle": "Co-founder & Full-Stack Developer/AI Specialist",
+            "affiliation": "Mailam Engineering College",
+            "knowsAbout": ["React", "Node.js", "Python", "AI/ML", "Web Development"],
+            "sameAs": [
+              "https://github.com/crazy-sam-02",
+              "https://www.linkedin.com/in/sambath-siva-059ba3299/"
+            ]
+          },
+          {
+            "@type": "Person", 
+            "name": "Thamizh Kumaran MDR",
+            "jobTitle": "Co-founder & IoT/Embedded Systems Developer",
+            "affiliation": "Mailam Engineering College",
+            "knowsAbout": ["Arduino", "ESP32", "IoT Development", "Embedded Systems", "Automation"],
+            "sameAs": [
+              "https://www.linkedin.com/in/thamizh-kumaran-m-d-r-970ab0293"
+            ]
+          }
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "Customer Service",
+          "telephone": "+91-9677899180",
+          "email": "prionex.dev@gmail.com"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "IN",
+          "addressRegion": "Tamil Nadu"
+        },
+        "serviceType": [
+          "Web Development",
+          "Mobile App Development", 
+          "IoT Development",
+          "AI/ML Projects",
+          "Final Year Projects",
+          "Academic Project Support"
+        ],
         "sameAs": [
           "https://www.instagram.com/prionex_global?igsh=anM0Y2ZneHJyMWd3",
           "https://www.linkedin.com/in/prionex-undefined-340201395/",
           "https://github.com/prionex2025-hue"
         ]
+      }
+    </script>
+
+    <!-- WebSite Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Prionex",
+        "url": "https://prionex.dev/",
+        "description": "Professional project development services for IoT, AI/ML, web and mobile applications with complete documentation and academic support.",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://prionex.dev/?search={search_term_string}",
+          "query-input": "required name=search_term_string"
+        },
+        "mainEntity": {
+          "@type": "Organization",
+          "@id": "https://prionex.dev/#organization"
+        }
+      }
+    </script>
+
+    <!-- Service Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Project Development Services",
+        "provider": {
+          "@type": "Organization",
+          "name": "Prionex",
+          "url": "https://prionex.dev/"
+        },
+        "serviceType": "Technology Project Development",
+        "description": "Complete project development services including IoT, AI/ML, web applications, mobile apps, with source code, documentation, and academic support.",
+        "areaServed": "India",
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Project Development Services",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Web App Development",
+                "description": "Full-stack web applications using React, Node.js, Python Django"
+              }
+            },
+            {
+              "@type": "Offer", 
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Mobile App Development",
+                "description": "Cross-platform iOS & Android apps using React Native, Flutter"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service", 
+                "name": "IoT & Embedded Systems",
+                "description": "Arduino, Raspberry Pi, ESP32 projects with sensor integration"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "AI & ML Projects", 
+                "description": "Machine learning models, data analysis, computer vision, NLP solutions"
+              }
+            }
+          ]
+        }
       }
     </script>
   </head>
