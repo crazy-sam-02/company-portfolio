@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* PRIONEX design system — futuristic dark, no gradients */
+
+@layer base {
+  :root {
+    /* Brand: White #FFFFFF, Blue #1E3A8A, Deep Black #0A0A0A */
+    --background: 0 0% 4%;            /* #0A0A0A */
+    --foreground: 0 0% 100%;          /* #FFFFFF */
+
+    --surface: 0 0% 6%;
+    --surface-elevated: 0 0% 9%;
+
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 224 76% 33%;           /* #1E3A8A */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 224 76% 48%;            /* slightly brighter blue for accents */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 14%;
+    --input: 0 0% 14%;
+    --ring: 224 76% 48%;
+
+    --radius: 0.25rem;
+  }
+
+  .dark {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 100%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "ss01", "cv11";
+  }
+  ::selection {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: "Space Grotesk", "Inter", sans-serif;
+    letter-spacing: -0.02em;
+  }
+
+  /* Subtle moving grid background */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, hsl(0 0% 100% / 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(0 0% 100% / 0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+  .bg-grid-fade {
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 40%, transparent 75%);
+            mask-image: radial-gradient(ellipse at center, #000 40%, transparent 75%);
+  }
+
+  /* Thin hairline border */
+  .hairline {
+    border: 1px solid hsl(var(--border));
+  }
+
+  /* Reveal on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal-left { transform: translateX(-32px); }
+  .reveal-right { transform: translateX(32px); }
+  .reveal-scale { transform: scale(0.96); }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  .reveal-delay-1 { transition-delay: 80ms; }
+  .reveal-delay-2 { transition-delay: 160ms; }
+  .reveal-delay-3 { transition-delay: 240ms; }
+  .reveal-delay-4 { transition-delay: 320ms; }
+  .reveal-delay-5 { transition-delay: 400ms; }
+
+  /* Blinking caret for typewriter */
+  .caret {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background: hsl(var(--accent));
+    margin-left: 4px;
+    vertical-align: -0.15em;
+    animation: caret-blink 1s steps(1) infinite;
+  }
+
+  /* Subtle blue glow on hover */
+  .glow-on-hover {
+    transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+  }
+  .glow-on-hover:hover {
+    box-shadow: 0 0 0 1px hsl(var(--accent) / 0.6), 0 0 24px -6px hsl(var(--accent) / 0.5);
+    border-color: hsl(var(--accent) / 0.6);
+  }
+}
+
+@keyframes caret-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
