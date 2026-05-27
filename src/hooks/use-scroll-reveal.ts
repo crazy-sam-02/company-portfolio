@@ -4,10 +4,27 @@ import { useEffect } from "react";
  *  Also watches for newly added .reveal nodes (e.g. tab switches). */
 export function useScrollReveal() {
   useEffect(() => {
+    const pendingFrames = new Map<Element, number[]>();
+
+    const reveal = (el: Element) => {
+      if (el.classList.contains("is-visible")) return;
+
+      const firstFrame = window.requestAnimationFrame(() => {
+        const secondFrame = window.requestAnimationFrame(() => {
+          el.classList.add("is-visible");
+          pendingFrames.delete(el);
+        });
+
+        pendingFrames.set(el, [firstFrame, secondFrame]);
+      });
+
+      pendingFrames.set(el, [firstFrame]);
+    };
+
     if (!("IntersectionObserver" in window)) {
       document
         .querySelectorAll<HTMLElement>(".reveal")
-        .forEach((el) => el.classList.add("is-visible"));
+        .forEach(reveal);
       return;
     }
 
@@ -15,7 +32,7 @@ export function useScrollReveal() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
+            reveal(entry.target);
             io.unobserve(entry.target);
           }
         });
@@ -37,6 +54,10 @@ export function useScrollReveal() {
     return () => {
       io.disconnect();
       mo.disconnect();
+      pendingFrames.forEach((frames) => {
+        frames.forEach((frame) => window.cancelAnimationFrame(frame));
+      });
+      pendingFrames.clear();
     };
   }, []);
 }

@@ -93,7 +93,7 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "fade-in": "fade-in 0.6s ease-out both",
+        "fade-in": "fade-in 1s ease-out both",
         "grid-pan": "grid-pan 12s linear infinite",
         "float-slow": "float-slow 8s ease-in-out infinite",
         "spin-slow": "spin-slow 30s linear infinite",
